@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 from uuid import uuid4
 from os import path
 
@@ -35,3 +36,29 @@ class Dish(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     ingridients = models.CharField(max_length=100, blank=False)
     photo = models.ImageField(upload_to=get_file_mame)
+
+class Gellery(models.Model):
+    def get_file_mame(self, filename: str):
+        ext = filename.strip().split('.')[-1]
+        filename = f'{uuid4()}.{ext}'
+        return path.join('images/gallery', filename)
+    
+    photo = models.ImageField(upload_to=get_file_mame)
+    desc = models.CharField(max_length=100, blank=False)
+    is_visible = models.BooleanField(default=True)
+
+class Forms(models.Model):
+    phone_validator = RegexValidator(regex=r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$')
+    name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=20, validators=[phone_validator])
+    persons = models.SmallIntegerField()
+    message = models.TextField(max_length=200)
+    date = models.DateTimeField(auto_now_add=True)
+    order_processed_date = models.DateTimeField(auto_now=True)
+    is_processed = models.BooleanField(default=False)
+    
+    class Meta:
+        ordering = ["-date"]
+    
+    def __str__(self) -> str:
+        return f'{self.name} {self.phone}: {self.message[:20]}'
