@@ -1,5 +1,5 @@
 from django import forms
-from .models import Forms
+from .models import UserReservationFormModel
 
 
 class UserReservationForm(forms.ModelForm):
@@ -39,5 +39,5 @@ class UserReservationForm(forms.ModelForm):
     }))
         
     class Meta:
-        model = Forms
+        model = UserReservationFormModel
         fields = ("name", "phone", "persons", "message")

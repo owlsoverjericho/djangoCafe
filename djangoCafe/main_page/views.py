@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Dish, DishCategory, Gellery
+from .models import Dish, DishCategory, Gallery
 from .forms import UserReservationForm
 import random
 
@@ -18,7 +18,7 @@ def main_page(req):
     categories = DishCategory.objects.filter(is_visible=True)
     dishes = Dish.objects.filter(is_visible=True)
     specials = Dish.objects.filter(is_visible=True, is_special=True)
-    gallery = list(Gellery.objects.filter(is_visible=True))
+    gallery = list(Gallery.objects.filter(is_visible=True))
     gallery = random.sample(gallery, 8)
     reservation_form = UserReservationForm()
 

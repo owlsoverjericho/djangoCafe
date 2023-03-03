@@ -37,7 +37,7 @@ class Dish(models.Model):
     ingridients = models.CharField(max_length=100, blank=False)
     photo = models.ImageField(upload_to=get_file_mame)
 
-class Gellery(models.Model):
+class Gallery(models.Model):
     def get_file_mame(self, filename: str):
         ext = filename.strip().split('.')[-1]
         filename = f'{uuid4()}.{ext}'
@@ -47,7 +47,7 @@ class Gellery(models.Model):
     desc = models.CharField(max_length=100, blank=False)
     is_visible = models.BooleanField(default=True)
 
-class Forms(models.Model):
+class UserReservationFormModel(models.Model):
     phone_validator = RegexValidator(regex=r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$')
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=20, validators=[phone_validator])
