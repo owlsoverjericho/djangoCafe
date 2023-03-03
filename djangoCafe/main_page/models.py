@@ -48,7 +48,7 @@ class Gallery(models.Model):
     is_visible = models.BooleanField(default=True)
 
 class UserReservationFormModel(models.Model):
-    phone_validator = RegexValidator(regex=r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$')
+    phone_validator = RegexValidator(regex=r'^\+?3?8?0\d{2}[- ]?(\d[ -]?){7}$')
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=20, validators=[phone_validator])
     persons = models.SmallIntegerField()
