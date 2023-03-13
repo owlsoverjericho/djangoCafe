@@ -48,11 +48,15 @@ class Gallery(models.Model):
     is_visible = models.BooleanField(default=True)
 
 class UserReservationFormModel(models.Model):
-    phone_validator = RegexValidator(regex=r'^\+?3?8?0\d{2}[- ]?(\d[ -]?){7}$')
+    phone_validator = RegexValidator(regex=r'^\+?3?8?0\d{2}[- ]?(\d[ -]?){7}$', message="The entered phone number seems to be incorrect")
+    #email_validator = RegexValidator(regex=r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+', message="The entered email address number seems to be incorrect")
+    
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=20, validators=[phone_validator])
     persons = models.SmallIntegerField()
     message = models.TextField(max_length=200)
+    #email = models.EmailField(max_length=50, validators=[email_validator])
+    #reservation_date = models.DateTimeField()
     date = models.DateTimeField(auto_now_add=True)
     order_processed_date = models.DateTimeField(auto_now=True)
     is_processed = models.BooleanField(default=False)
